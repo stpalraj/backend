@@ -46,7 +46,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // CREATE
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     if (!req.body.cardNumber || !req.body.ukstks) {
       return res
@@ -56,9 +56,6 @@ router.post("/", upload.single("image"), async (req, res) => {
     if (await Ukstk.findOne({ ukstks: req.body.ukstks })) {
       return res.status(400).json({ message: "Ukstks already exists" });
     }
-    // if (await Ukstk.findOne({ cardNumber: req.body.cardNumber })) {
-    //   return res.status(400).json({ message: "Card number already exists" });
-    // }
     const newUkstk = new Ukstk({
       name: req.body.name,
       id: req.body.id,
@@ -66,9 +63,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       cardNumber: req.body.cardNumber,
       phone: req.body.phone,
       ukstks: req.body.ukstks,
-      image: req.file ? `/uploads/${req.file.filename}` : undefined,
-      cardSettled: req.body.cardSettled || false,
-      cardPrinted: req.body.cardPrinted || false,
+      image: req.body.image || undefined,
     });
     const savedUkstk = await newUkstk.save();
     res.status(201).json(savedUkstk);
