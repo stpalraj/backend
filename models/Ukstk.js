@@ -27,7 +27,7 @@ const uksTksSchema = new mongoose.Schema({
     default: Date.now,
   },
   cardNumber: {
-    type: Number,
+    type: String,
     description:
       "A number representing the card number associated with the todo",
     required: true,

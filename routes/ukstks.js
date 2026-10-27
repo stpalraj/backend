@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
     // Optionally add aggregation pipeline for additional data
     const pipeline = [
       { $match: {} },
-      { $sort: { createdAt: -1 } }, // Sort by creation date descending
+      // { $sort: { createdAt: -1 } }, // Sort by creation date descending
       {
         $group: {
           _id: null,
